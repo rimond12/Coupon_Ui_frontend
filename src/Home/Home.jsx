@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Home = () => {
     return (
@@ -20,24 +21,24 @@ const Home = () => {
 
                     {/* Buttons */}
                     <div className="mt-10 flex justify-center flex-wrap gap-4">
-                        <a
-                            href="/create-coupon"
+                        <Link
+                            to="/create-coupon"
                             className="px-7 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-2xl font-semibold shadow-lg transform transition hover:scale-105 hover:shadow-2xl"
                         >
                             Create Coupon
-                        </a>
-                        <a
-                            href="/best-coupon"
+                        </Link>
+                        <Link
+                            to="/best-coupon"
                             className="px-7 py-3 bg-white border-2 border-indigo-600 text-indigo-600 rounded-2xl font-semibold shadow hover:bg-indigo-50 transform transition hover:scale-105"
                         >
                             Get Best Coupon
-                        </a>
-                        <a
-                            href="/coupons"
+                        </Link>
+                        <Link
+                            to="/coupons"
                             className="px-7 py-3 bg-indigo-100 text-indigo-700 rounded-2xl font-semibold shadow hover:bg-indigo-200 transform transition hover:scale-105"
                         >
                             View Coupon List
-                        </a>
+                        </Link>
                     </div>
 
                 </div>
