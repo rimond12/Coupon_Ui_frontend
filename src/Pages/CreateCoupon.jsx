@@ -26,10 +26,8 @@ export default function CreateCoupon() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     if (name.startsWith("eligibility.")) {
       const key = name.split(".")[1];
-
       setForm({
         ...form,
         eligibility: {
@@ -38,39 +36,30 @@ export default function CreateCoupon() {
         },
       });
     } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
+      setForm({ ...form, [name]: value });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const payload = {
       ...form,
       discountValue: Number(form.discountValue),
       maxDiscountAmount: Number(form.maxDiscountAmount),
       usageLimitPerUser: Number(form.usageLimitPerUser),
-
       eligibility: {
         allowedUserTiers: form.eligibility.allowedUserTiers
           ? form.eligibility.allowedUserTiers.split(",")
           : [],
-
         allowedCountries: form.eligibility.allowedCountries
           ? form.eligibility.allowedCountries.split(",")
           : [],
-
         applicableCategories: form.eligibility.applicableCategories
           ? form.eligibility.applicableCategories.split(",")
           : [],
-
         excludedCategories: form.eligibility.excludedCategories
           ? form.eligibility.excludedCategories.split(",")
           : [],
-
         minLifetimeSpend: Number(form.eligibility.minLifetimeSpend),
         minOrdersPlaced: Number(form.eligibility.minOrdersPlaced),
         minCartValue: Number(form.eligibility.minCartValue),
@@ -81,119 +70,210 @@ export default function CreateCoupon() {
 
     try {
       const res = await axios.post("http://localhost:5000/api/coupons", payload);
-
-      alert("Coupon created successfully!");
+      alert("✅ Coupon created successfully!");
       console.log(res.data);
     } catch (error) {
       console.log(error);
-      alert("Error creating coupon!");
+      alert("❌ Error creating coupon!");
     }
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-white shadow-2xl rounded-3xl w-full max-w-5xl p-8">
+        <h1 className="text-4xl font-extrabold text-blue-700 mb-8 text-center">
+          Create Coupon
+        </h1>
 
-      <div className="p-6 max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Create Coupon</h1>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Basic Info */}
+          <div>
+            <label className="block font-medium mb-1">Coupon Code</label>
+            <input
+              name="code"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Enter coupon code"
+              required
+            />
+          </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block font-medium mb-1">Description</label>
+            <input
+              name="description"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Enter description"
+              required
+            />
+          </div>
 
-          <input name="code" onChange={handleChange} className="border p-2" placeholder="Coupon Code" required />
+          <div>
+            <label className="block font-medium mb-1">Discount Type</label>
+            <select
+              name="discountType"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            >
+              <option value="FLAT">Flat</option>
+              <option value="PERCENT">Percent</option>
+            </select>
+          </div>
 
-          <input name="description" onChange={handleChange} className="border p-2" placeholder="Description" required />
+          <div>
+            <label className="block font-medium mb-1">Discount Value</label>
+            <input
+              name="discountValue"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Enter discount value"
+              required
+            />
+          </div>
 
-          <select
-            name="discountType"
-            onChange={handleChange}
-            className="border p-2"
-          >
-            <option value="FLAT">Flat</option>
-            <option value="PERCENT">Percent</option>
-          </select>
+          <div>
+            <label className="block font-medium mb-1">Max Discount Amount</label>
+            <input
+              name="maxDiscountAmount"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Optional"
+            />
+          </div>
 
-          <input name="discountValue" onChange={handleChange} className="border p-2" placeholder="Discount Value" required />
+          <div>
+            <label className="block font-medium mb-1">Start Date</label>
+            <input
+              type="date"
+              name="startDate"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              required
+            />
+          </div>
 
-          <input name="maxDiscountAmount" onChange={handleChange} className="border p-2" placeholder="Max Discount Amount (optional)" />
+          <div>
+            <label className="block font-medium mb-1">End Date</label>
+            <input
+              type="date"
+              name="endDate"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              required
+            />
+          </div>
 
-          <input type="date" name="startDate" onChange={handleChange} className="border p-2" required />
-
-          <input type="date" name="endDate" onChange={handleChange} className="border p-2" required />
-
-          <input name="usageLimitPerUser" onChange={handleChange} className="border p-2" placeholder="User Limit" />
+          <div>
+            <label className="block font-medium mb-1">Usage Limit per User</label>
+            <input
+              name="usageLimitPerUser"
+              onChange={handleChange}
+              className="border rounded-lg p-3 w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Optional"
+            />
+          </div>
 
           {/* Eligibility Section */}
-          <div className="col-span-2 border p-4 mt-4 rounded">
-            <h2 className="text-lg font-bold mb-2">Eligibility</h2>
+          <div className="col-span-1 md:col-span-2 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl shadow-inner">
+            <h2 className="text-2xl font-bold text-blue-600 mb-4">Eligibility</h2>
 
-            <input
-              name="eligibility.allowedUserTiers"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Allowed User Tiers (comma-separated)"
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-medium mb-1">Allowed User Tiers</label>
+                <input
+                  name="eligibility.allowedUserTiers"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="Comma-separated"
+                />
+              </div>
 
-            <input
-              name="eligibility.allowedCountries"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Allowed Countries (comma-separated)"
-            />
+              <div>
+                <label className="block font-medium mb-1">Allowed Countries</label>
+                <input
+                  name="eligibility.allowedCountries"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="Comma-separated"
+                />
+              </div>
 
-            <input
-              name="eligibility.minLifetimeSpend"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Min Lifetime Spend"
-            />
+              <div>
+                <label className="block font-medium mb-1">Min Lifetime Spend</label>
+                <input
+                  name="eligibility.minLifetimeSpend"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="0"
+                />
+              </div>
 
-            <input
-              name="eligibility.minOrdersPlaced"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Min Orders"
-            />
+              <div>
+                <label className="block font-medium mb-1">Min Orders Placed</label>
+                <input
+                  name="eligibility.minOrdersPlaced"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="0"
+                />
+              </div>
 
-            <label className="flex items-center gap-2 mb-2">
-              <input
-                type="checkbox"
-                name="eligibility.firstOrderOnly"
-                onChange={handleChange}
-              />
-              First Order Only
-            </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="eligibility.firstOrderOnly"
+                  onChange={handleChange}
+                  className="w-5 h-5 accent-blue-500"
+                />
+                <label className="font-medium">First Order Only</label>
+              </div>
 
-            <input
-              name="eligibility.minCartValue"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Min Cart Value"
-            />
+              <div>
+                <label className="block font-medium mb-1">Min Cart Value</label>
+                <input
+                  name="eligibility.minCartValue"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="0"
+                />
+              </div>
 
-            <input
-              name="eligibility.applicableCategories"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Applicable Categories (comma-separated)"
-            />
+              <div>
+                <label className="block font-medium mb-1">Applicable Categories</label>
+                <input
+                  name="eligibility.applicableCategories"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="Comma-separated"
+                />
+              </div>
 
-            <input
-              name="eligibility.excludedCategories"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Excluded Categories (comma-separated)"
-            />
+              <div>
+                <label className="block font-medium mb-1">Excluded Categories</label>
+                <input
+                  name="eligibility.excludedCategories"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="Comma-separated"
+                />
+              </div>
 
-            <input
-              name="eligibility.minItemsCount"
-              onChange={handleChange}
-              className="border p-2 w-full mb-2"
-              placeholder="Min Items Count"
-            />
+              <div>
+                <label className="block font-medium mb-1">Min Items Count</label>
+                <input
+                  name="eligibility.minItemsCount"
+                  onChange={handleChange}
+                  className="border rounded-lg p-2 w-full focus:ring-1 focus:ring-blue-300 focus:outline-none"
+                  placeholder="0"
+                />
+              </div>
+            </div>
           </div>
 
           <button
             type="submit"
-            className="col-span-2 bg-blue-600 text-white p-2 rounded"
+            className="col-span-1 md:col-span-2 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold p-3 rounded-xl shadow-lg transition-all duration-200"
           >
             Create Coupon
           </button>

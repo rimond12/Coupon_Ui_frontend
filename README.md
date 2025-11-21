@@ -1,16 +1,68 @@
-# React + Vite
+# Coupon Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+This is the **React frontend** for the Coupon Management System.  
+It provides a modern UI to create coupons, view all coupons, and find the best eligible coupon for a given user/cart.  
+The frontend interacts with the backend API hosted on `http://localhost:5000`.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- **Language:** JavaScript (ES6+)  
+- **Framework:** React.js  
+- **Libraries:** Tailwind CSS, Axios, React Router DOM  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## How to Run
 
-## Expanding the ESLint configuration
+### Prerequisites
+- Node.js 18+  
+- npm (Node Package Manager)  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Setup Steps
+1. Open terminal and navigate to frontend folder:
+```bash
+Install dependencies:
+
+bash
+Copy code
+npm install
+Start the Copon-Ui-frontend:
+
+bash
+Copy code
+npm start
+The app runs on: http://localhost:3000
+
+Features / Demo
+Demo Login (Hardcoded User)
+Email: hire-me@anshumat.org
+
+Password: HireMe@2025!
+
+Functionalities
+Create Coupons: Add coupons with detailed eligibility rules (user tiers, countries, first order only, cart value, categories, etc.).
+
+Get Best Coupon: Evaluate all coupons for a given user/cart and find the best discount.
+
+View All Coupons: Lists all created coupons in a modern responsive UI.
+
+AI Usage Note
+Used ChatGPT to assist in:
+
+Structuring React components
+
+Improving Tailwind CSS UI
+
+Designing frontend logic for API interaction and form handling
+
+Prompts included:
+"Build a React frontend for a coupon management system with Create, List, and Best Coupon features using Tailwind CSS and Axios."
+
+Notes for Reviewer
+Fully responsive and modern UI using Tailwind CSS.
+
+Integrates seamlessly with backend API.
+
+All features functional with the demo hardcoded user.
