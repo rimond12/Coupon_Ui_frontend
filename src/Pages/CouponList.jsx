@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const CouponList = () => {
+  
   const [coupons, setCoupons] = useState([]);
 
   const fetchCoupons = async () => {

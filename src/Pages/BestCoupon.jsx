@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const BestCoupon = () => {
+  
   const [coupon, setCoupon] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +20,7 @@ const BestCoupon = () => {
       ],
     },
   };
+
 
   const handleBestCoupon = async () => {
     setLoading(true);
