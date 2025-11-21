@@ -3,7 +3,7 @@
 ## Project Overview
 This is the **React frontend** for the Coupon Management System.  
 It provides a modern UI to create coupons, view all coupons, and find the best eligible coupon for a given user/cart.  
-The frontend interacts with the backend API hosted on `http://localhost:5000`.
+The frontend interacts with the backend API hosted on `https://coupon-ui-backend.vercel.app/`.
 
 ---
 

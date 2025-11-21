@@ -23,7 +23,7 @@ const BestCoupon = () => {
   const handleBestCoupon = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/coupons/best", {
+      const res = await fetch("https://coupon-ui-backend.vercel.app/api/coupons/best", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userCart),

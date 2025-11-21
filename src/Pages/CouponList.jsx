@@ -5,7 +5,7 @@ const CouponList = () => {
 
   const fetchCoupons = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/coupons");
+      const res = await fetch("https://coupon-ui-backend.vercel.app/api/coupons");
       const data = await res.json();
       setCoupons(data);
     } catch (err) {
